@@ -1,51 +1,81 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+************* Assignment Two *************
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+************* following commands need to be executed **********
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+1. php artisan migrate (running all outstanding migration ) OR php artisan migrate --path=/app/database/migrations/create_countries_table (running all outstanding migration for a path)
 
-## Learning Laravel
+2.php artisan db:seed --class=CountryTableSeeder
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+************* Process *************
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+1. composer create-project laravel/laravel project-name
 
-## Contributing
+2. create database in phpmyadmin(countrysearch)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+3.php artisan serve
 
-## Security Vulnerabilities
+4. For Migration : php artisan make:migration create_countries_table
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+5. For Seeder : php artisan make:seeder CountryTableSeeder
 
-## License
+6. Migration are files which contain a class defination with both an up() and down() method.The up() method is run when the migration is executed to apply,changes to the database. The down() method is run to revert the changes.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+************ Commands are used to run the project ***********
+
+
+1. php artisan migrate (running all outstanding migration ) OR php artisan migrate --path=/app/database/migrations/create_countries_table (running all outstanding migration for a path)
+
+2.php artisan db:seed --class=CountryTableSeeder
+
+FOR CREATING ROUTE (web.php) :
+Route::get('/','CountryController@CountriesList');
+
+FOR CREATING CONTROLLER (CountryController.php) :
+php artisan make:controller CountryController
+
+FOR CREATING VIEW (countries-list.blade.php)
+
+
+************** Once the setup of the project has been done *******************
+
+
+
+1. php artisan serve
+
+2. put http://localhost:8000/ url in your browser you will get list of coutries with their respective ISO2 and ISO3 codes.
+
+3. You can also filter the data on select country name. so that you will get result of selected country code
+
+
+
+*********************** Internal process for assignment two *****************
+
+ 
+1. Route :
+
+	i.Location --LARAVEL_ROOT/routes/web.php
+	
+	ii.usage --
+	Route::get('/', 'CountryController@CountriesList');
+
+
+2. Controller :
+
+LARAVEL_ROOT/app/Http/Controllers/CountryController
+
+controller perform logical part. CountryController function checks the ISO exists or not in database. If not then it returns all the data from database else returns result of selected (filter data)ISO code.
+
+3. View  :
+ 
+ LARAVEL_ROOT/resources/views/countries-list.blade.php
+
+ Blade is most powerful templating engine provided with laravel. blade adds essentially zero overhead to your application .Blade view files use .blade.php file extension and are stored in resources/views.
+
+ This view display list of available country with ISO code (ISO2 and ISO3).
